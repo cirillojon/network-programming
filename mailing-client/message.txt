@@ -1,0 +1,6 @@
+Hello!
+
+This is the content of the email sent
+
+Regards,
+Jon
