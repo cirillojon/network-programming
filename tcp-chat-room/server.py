@@ -47,4 +47,5 @@ def receive():
         thread = threading.Thread(target=handle, args=client)
         thread.start()
 
+print(f'Server is listening on port: {port}')
 receive()
