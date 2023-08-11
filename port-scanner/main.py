@@ -1,6 +1,10 @@
 import socket
+import threading
+from queue import Queue
 
 target = '192.168.1.1'
+queue = Queue()
+open_ports = []
 
 def portscan(port):
     try:
@@ -11,6 +15,7 @@ def portscan(port):
         print(f"Error encountered: {e}")
         return False
 
+''' Inefficient loop that doesn't use multi-threading
 for port in range(1, 1024):
     result = portscan(port)
 
@@ -18,3 +23,9 @@ for port in range(1, 1024):
         print(f'Port: {port} is open')
     else:
         print(f'Port: {port} is closed')
+'''
+
+def fill_queue(port_list):
+    for port in port_list:
+        queue.put(port)
+
