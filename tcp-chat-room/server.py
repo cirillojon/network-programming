@@ -10,3 +10,22 @@ server.listen()
 
 clients = []
 nicknames = []
+
+def broadcast(message):
+    for client in clients:
+        client.send(message)
+
+def handle(client):
+    while True:
+        try:
+            message = client.recv(1024)
+            broadcast(message)
+        except Exception as e:
+            print(f'An error occured: {e}')
+            index = clients.index(client)
+            clients.remove(client)
+            client.close()
+            nickname = nicknames[index]
+            broadcast(f'Nickname: {nickname} was removed'.encode('ascii'))
+            nicknames.remove(nickname)
+            break
