@@ -29,3 +29,10 @@ def fill_queue(port_list):
     for port in port_list:
         queue.put(port)
 
+def worker():
+    while not queue.empty():
+        port = queue.get()
+        if portscan(port):
+            print(f'Port: {port} is open')
+            open_ports.append(port)
+
