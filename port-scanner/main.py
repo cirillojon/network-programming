@@ -11,5 +11,10 @@ def portscan(port):
         print(f"Error encountered: {e}")
         return False
 
-print(portscan(80))
-    
+for port in range(1, 1024):
+    result = portscan(port)
+
+    if result:
+        print(f'Port: {port} is open')
+    else:
+        print(f'Port: {port} is closed')
