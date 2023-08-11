@@ -12,7 +12,7 @@ def portscan(port):
         sock.connect((target, port))
         return True
     except socket.error as e:
-        print(f"Error encountered: {e}")
+        # print(f"Error encountered: {e}")
         return False
 
 ''' Inefficient loop that doesn't use multi-threading
@@ -36,3 +36,19 @@ def worker():
             print(f'Port: {port} is open')
             open_ports.append(port)
 
+port_list = range(1,1024)
+fill_queue(port_list)
+
+thread_list = []
+
+for t in range(100):
+    thread = threading.Thread(target=worker)
+    thread_list.append(thread)
+
+for thread in thread_list:
+    thread.start()
+
+for thread in thread_list:
+    thread.join()
+
+print(f'Open ports: {open_ports}')
